@@ -82,7 +82,7 @@ export default {
   },
   defaultOptions: [{}],
   create(context) {
-    debugger
+    
     const filename = context.getFilename();
     const sourceCode = context.getSourceCode();
     const MODULE_DECL_CACHE = new Map<TSESTree.TSModuleDeclaration, boolean>();
@@ -135,7 +135,7 @@ export default {
     })();
 
     function collectUnusedVariables(): TSESLint.Scope.Variable[] {
-      debugger
+      
       /**
        * Determines if a variable has a sibling rest property
        * @param variable eslint-scope variable object.
@@ -260,7 +260,6 @@ export default {
       [ambientDeclarationSelector(AST_NODE_TYPES.Program, true)](
         node: DeclarationSelectorNode
       ): void {
-        debugger
         if (!util.isDefinitionFile(filename)) {
           return;
         }
@@ -272,7 +271,6 @@ export default {
       "TSModuleDeclaration > TSModuleDeclaration"(
         node: TSESTree.TSModuleDeclaration
       ): void {
-        debugger
         if (node.id.type === AST_NODE_TYPES.Identifier) {
           let scope = context.getScope();
           if (scope.upper) {
@@ -317,7 +315,6 @@ export default {
 
       // collect
       "Program:exit"(programNode): void {
-        debugger
         /**
          * Generates the message data about the variable being defined and unused,
          * including the ignore pattern if configured.
@@ -399,7 +396,6 @@ export default {
                 ? getAssignedMessageData(unusedVar)
                 : getDefinedMessageData(unusedVar),
               fix: function (fixer) {
-                debugger;
                 return disableCode(fixer, unusedVar)
                 // return fixer.replaceTextRange(unusedVar.identifiers[0]!.parent!.range, '/*deadcode*/')
                 // return fixer.remove(unusedVar.identifiers[0].parent);
@@ -430,6 +426,9 @@ export default {
           }
         }
       },
+      "ImportDeclaration:exit"(node): void {
+        debugger
+      }
     };
 
     function checkModuleDeclForExportEquals(
