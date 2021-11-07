@@ -1,7 +1,7 @@
 {
-  "name": "eslint-plugin-deadcode",
+  "name": "eslint-plugin-codereview",
   "version": "0.0.1",
-  "description": "delete dead code.",
+  "description": "eslint plugin codereview",
   "keywords": [
     "eslint",
     "eslintplugin",
@@ -9,6 +9,9 @@
   ],
   "author": "liuchengyuan",
   "main": "lib/index.js",
+  "bin": {
+    "codereview": "bin/codereview.js"
+  },
   "scripts": {
     "lint": "eslint .",
     "test": "mocha tests --recursive",

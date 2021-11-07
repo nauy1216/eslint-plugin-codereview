@@ -19,7 +19,7 @@ export type Options = [
       caughtErrorsIgnorePattern?: string;
     }
 ];
-
+import {disableCode} from '../util/helper'
 interface TranslatedOptions {
   vars: "all" | "local";
   varsIgnorePattern?: RegExp;
@@ -400,7 +400,9 @@ export default {
                 : getDefinedMessageData(unusedVar),
               fix: function (fixer) {
                 debugger;
-                // return fixer.remove(unusedVar);
+                return disableCode(fixer, unusedVar)
+                // return fixer.replaceTextRange(unusedVar.identifiers[0]!.parent!.range, '/*deadcode*/')
+                // return fixer.remove(unusedVar.identifiers[0].parent);
               },
             });
 
@@ -422,7 +424,7 @@ export default {
               data: getDefinedMessageData(unusedVar),
               // fix: function (fixer) {
               //   debugger;
-              //   return fixer.remove(programNode);
+              //   return fixer.remove(unusedVar.identifiers[0].parent);
               // },
             });
           }
