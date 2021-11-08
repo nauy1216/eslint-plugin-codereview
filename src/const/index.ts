@@ -9,8 +9,11 @@ export enum Types {
     Identifier = 'Identifier',
     VariableDeclarator = 'VariableDeclarator',
     VariableDeclaration = 'VariableDeclaration',
-
+    
+    ClassNameDefinition = 'ClassNameDefinition',
 
     // ts
-    TSTypeAliasDeclaration = 'TSTypeAliasDeclaration'
+    TSTypeAliasDeclaration = 'TSTypeAliasDeclaration',
+    TSInterfaceDeclaration = 'TSInterfaceDeclaration',
+    TSEnumDeclaration = 'TSEnumDeclaration'
 }

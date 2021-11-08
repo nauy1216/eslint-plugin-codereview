@@ -65,6 +65,7 @@ export default {
     },
 
     create(context) {
+        console.log(context.getFilename())
         const sourceCode = context.getSourceCode();
 
         const REST_PROPERTY_TYPE = /^(?:RestElement|(?:Experimental)?RestProperty)$/u;
@@ -492,8 +493,14 @@ export default {
 
         function collectTsType(variable, unusedVars):boolean {
             debugger
-            if (variable.isTypeVariable) {
-                if (variable.references.length === 0) {
+            if (
+                variable.isTypeVariable && 
+                // 排除类似class的声明
+                variable.identifiers[0].parent.type.indexOf('TS') === 0
+            ) {
+                if (
+                    variable.references.length === 0
+                ) {
                     unusedVars.push(variable)
                 }
                 return true

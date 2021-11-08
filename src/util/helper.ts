@@ -36,6 +36,11 @@ function disableJsCode(fixer, unusedVar) {
         node = node.parent
         return addAnnotation(fixer, node)
     }
+
+    // 5. ClassNameDefinition
+    if (Types.ClassNameDefinition === node.type) {
+
+    }
     
     return undefined
 }
@@ -45,6 +50,16 @@ function disableTypeCode(fixer, unusedVar) {
     let node = unusedVar.identifiers[0].parent
     // 1. type A = any
     if (Types.TSTypeAliasDeclaration === node.type) {
+        return addAnnotation(fixer, node)
+    }
+
+    // 2. interface A {} 
+    if (Types.TSInterfaceDeclaration === node.type) {
+        return addAnnotation(fixer, node)
+    }
+
+    // 3. enum A {}
+    if (Types.TSEnumDeclaration === node.type) {
         return addAnnotation(fixer, node)
     }
 }
