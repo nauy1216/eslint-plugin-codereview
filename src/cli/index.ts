@@ -3,9 +3,18 @@ import { exec } from "child_process"
 import minimist from 'minimist'
 
 export default function () {
-    debugger
-    // codereview --config=.eslintrc.js --src=./src
+    // codereview --config=.eslintrc.js --src=./src/1.ts
     const argv = minimist(process.argv.slice(2))
+
+    if (!argv.config) {
+        throw new Error('config参数未传。用于eslint设置选项。')
+    }
+
+    if (!argv.src) {
+        throw new Error('src参数未传。用于指定eslint检测的文件或目录。')
+    }
+
+
     const srcFiles = argv.src// path.resolve(process.cwd(), argv.src)
     const configFile = path.resolve(process.cwd(), argv.config)
     const eslintExe = path.resolve(process.cwd(), 'node_modules/eslint/bin/eslint.js')

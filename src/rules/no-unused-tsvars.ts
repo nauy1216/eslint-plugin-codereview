@@ -1,4 +1,5 @@
 import { addAnnotation } from '../util/helper'
+import {addComment} from '../util/comment'
 import { Types } from '../const'
 export default {
   meta: {
@@ -6,8 +7,7 @@ export default {
     docs: {
       description: "no-tsvars",
       category: "Possible Errors",
-      recommended: true,
-      // url: "https://eslint.org/docs/rules/no-extra-semi",
+      recommended: false,
     },
     fixable: "code",
     // 定义参数的格式
@@ -28,8 +28,18 @@ export default {
     },
   },
   create: function (context) {
+    // ts
     const typeVars: any = []
     const usedTypeVars = new Set()
+
+
+    // js
+    const js = {
+      // 声明的变量
+      vars: new Map(),
+      // 已经使用的变量
+      usedVars: new Map()
+  };
     return {
       // collect
       "Program:exit"(programNode): void {
@@ -55,8 +65,22 @@ export default {
         });
         typeVars.length = 0
         usedTypeVars.clear()
-      },
 
+
+        js.vars.forEach((value, key) => {
+          if (!js.usedVars.has(key)) {
+            context.report({
+              node: value,
+              message: "未使用的变量声明",
+              fix: function (fixer) {
+                debugger;
+                return addComment(fixer, value)
+              },
+            });
+          }
+        })
+      },
+      // ts-------------------------------
       //类型别名 type A 
       TSTypeAliasDeclaration(node) {
         debugger
@@ -71,6 +95,12 @@ export default {
         if (Types.ExportNamedDeclaration === node.parent.type) {
           usedTypeVars.add(node.id.name)
         }
+      },
+      
+      // js-------------------------------
+      Identifier(node) {
+        debugger
+        js.vars.set(node.name, node)
       },
 
       onCodePathStart: function (codePath, node) {

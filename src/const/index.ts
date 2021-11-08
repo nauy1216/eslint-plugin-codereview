@@ -1,5 +1,12 @@
 export enum Types {
-    // type A = B
     TSTypeReference = 'TSTypeReference',
-    ExportNamedDeclaration = 'ExportNamedDeclaration'
+    ExportNamedDeclaration = 'ExportNamedDeclaration',
+    Parameter = 'Parameter',
+    FunctionDeclaration = 'FunctionDeclaration',
+    ImportSpecifier = 'ImportSpecifier',
+
+    
+    Identifier = 'Identifier',
+    VariableDeclarator = 'VariableDeclarator',
+    VariableDeclaration = 'VariableDeclaration'
 }

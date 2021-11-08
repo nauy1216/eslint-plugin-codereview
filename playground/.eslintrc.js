@@ -10,7 +10,7 @@ module.exports = {
     'codereview',
   ],
   rules: {
-    'codereview/no-unused-vars': 2,
+    // 'codereview/no-unused-vars': 2,
     'codereview/no-unused-tsvars': 2,
     // indent: 'off'
   },
