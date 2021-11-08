@@ -1,5 +1,5 @@
-// type A = any
-// type C = A
+type A = any
+type C = A
 
 
 // type A = any
