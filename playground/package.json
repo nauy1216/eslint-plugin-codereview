@@ -4,7 +4,7 @@
   "description": "",
   "main": "eslint.config.js",
   "scripts": {
-    "test": "codereview"
+    "lint": "codereview --config=.eslintrc.js --src=./src/vars/test.ts"
   },
   "keywords": [],
   "author": "",
