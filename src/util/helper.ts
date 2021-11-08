@@ -1,6 +1,14 @@
 import { Types } from '../const/index'
 export function disableCode(fixer, unusedVar) {
     debugger
+    if (unusedVar.isTypeVariable) {
+        return disableTypeCode(fixer, unusedVar)
+    }
+    return disableJsCode(fixer, unusedVar)
+}
+
+function disableJsCode(fixer, unusedVar) {
+    debugger
     let node
     // 1. 未使用的函数参数 
     // function test(a) {}
@@ -29,8 +37,18 @@ export function disableCode(fixer, unusedVar) {
         return addAnnotation(fixer, node)
     }
     
-    return null
+    return undefined
 }
+
+function disableTypeCode(fixer, unusedVar) {
+    debugger
+    let node = unusedVar.identifiers[0].parent
+    // 1. type A = any
+    if (Types.TSTypeAliasDeclaration === node.type) {
+        return addAnnotation(fixer, node)
+    }
+}
+
 
 /**
  * @description 注释node

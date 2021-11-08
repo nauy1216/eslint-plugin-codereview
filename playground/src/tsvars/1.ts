@@ -1,5 +1,3 @@
-// type A = any
+type A = any
 
-// function a() {
-//     //
-// }
+export default {}

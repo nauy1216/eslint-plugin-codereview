@@ -1,2 +1,6 @@
 type A = any
-export type C = A
+
+
+export default function(a: A) {
+    console.log(a)
+}

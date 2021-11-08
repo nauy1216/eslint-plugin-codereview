@@ -1,4 +1,3 @@
 type A = any
-type C = A
 
-export default {}
+export default A

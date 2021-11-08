@@ -11,7 +11,8 @@ module.exports = {
   ],
   rules: {
     // 'codereview/no-unused-vars': 2,
-    'codereview/no-unused-tsvars': 2,
+    // 'codereview/no-unused-tsvars': 2,
+    'codereview/no-unused-code': 2,
     // indent: 'off'
   },
 };

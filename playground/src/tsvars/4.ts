@@ -1,5 +1,6 @@
 type A = any
 
-function a() {
-    //
+
+export default function(a: A) {
+    // console.log(a)
 }

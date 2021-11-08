@@ -1,12 +1,16 @@
 export enum Types {
     TSTypeReference = 'TSTypeReference',
-    ExportNamedDeclaration = 'ExportNamedDeclaration',
     Parameter = 'Parameter',
     FunctionDeclaration = 'FunctionDeclaration',
     ImportSpecifier = 'ImportSpecifier',
+    ExportNamedDeclaration = 'ExportNamedDeclaration',
 
-    
+
     Identifier = 'Identifier',
     VariableDeclarator = 'VariableDeclarator',
-    VariableDeclaration = 'VariableDeclaration'
+    VariableDeclaration = 'VariableDeclaration',
+
+
+    // ts
+    TSTypeAliasDeclaration = 'TSTypeAliasDeclaration'
 }
