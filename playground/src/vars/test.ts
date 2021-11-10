@@ -1,6 +1,6 @@
-type A = any
+/**DEAD_CODE type A = any*/
 
 
-export default function(a: A) {
+export default function(/**DEAD_CODE a: A*/) {
     // console.log(a)
 }
