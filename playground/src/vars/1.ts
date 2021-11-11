@@ -6,11 +6,11 @@
 */
 export function mapKeysToCamelCase(data) {
     if (data instanceof Array) {
-        data.forEach(function (v, /**DEAD_CODE index*/) {
+        data.forEach(function (v, index) {
             mapKeysToCamelCase(v);
         });
     } else if (data instanceof Object) {
-        Object.keys(data).forEach(function (v, /**DEAD_CODE index*/) {
+        Object.keys(data).forEach(function (v,  index) {
             const newValue = lineToKey(v);
             // 如果名称一致，说明可能不存在转化情况
             if (newValue !== v) {
