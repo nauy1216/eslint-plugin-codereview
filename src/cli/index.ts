@@ -15,8 +15,8 @@ export default function () {
     }
 
     const srcFiles = argv.src// path.resolve(process.cwd(), argv.src)
-    const configFile = path.resolve(process.cwd(), argv.config)
-    // const configFile = path.resolve(process.cwd(), '../config/.eslintrc.default.js')
+    // const configFile = path.resolve(process.cwd(), argv.config)
+    const configFile = path.resolve(__dirname, '../../config/.eslintrc.default.js')
     const eslintExe = path.resolve(__dirname, '../../node_modules/eslint/bin/eslint.js')
     
     exec(`${eslintExe} -v`, (error, stdout) => {

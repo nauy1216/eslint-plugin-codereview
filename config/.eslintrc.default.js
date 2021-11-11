@@ -7,14 +7,10 @@ module.exports = {
   },
   parser: "@typescript-eslint/parser",
   plugins: [
-    // require('../lib/index.js')
-    // path.resolve(__dirname, '../lib/index.js')
-    "prettier"
+    "codereview"
   ],
   rules: {
-    // 'codereview/no-unused-vars': 2,
-    // 'codereview/no-unused-tsvars': 2,
     'codereview/no-unused-code': 2,
-    // indent: 'off'
+    indent: 'off'
   },
 };
