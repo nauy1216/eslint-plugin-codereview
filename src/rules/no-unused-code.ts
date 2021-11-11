@@ -493,6 +493,7 @@ export default {
 
         function isUnusedTsType(variable): boolean {
             if (
+                variable.defs.length > 0 && 
                 variable.isTypeVariable &&
                 // 排除类似class的声明
                 variable.identifiers[0].parent.type.indexOf('TS') === 0
