@@ -7,6 +7,7 @@ npm link
 # 遍历ast
 - /Users/liuchengyuan/Documents/github/typescript-eslint/packages/scope-manager/src/referencer/VisitorBase.ts
 
+# eslint-rule-composer
 # 收集未使用的变量
 - /Users/liuchengyuan/Documents/github/typescript-eslint/packages/eslint-plugin/src/util/collectUnusedVariables.ts
 ```ts
@@ -33,3 +34,9 @@ npm link
     return unusedVars;
   }
 ```
+
+# todo
+1. import { /**DEAD_CODE create_store*/, store } from './redux/store';
+1. src/constants.tsx
+2. src/root.tsx
+3. src/api/achievementManage/type.ts

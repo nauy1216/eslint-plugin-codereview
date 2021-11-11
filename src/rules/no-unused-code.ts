@@ -9,9 +9,8 @@
 // Requirements
 //------------------------------------------------------------------------------
 
-// const astUtils = require("../../node_modules/eslint/lib/rules/utils/ast-utils");
 import astUtils from '../../node_modules/eslint/lib/rules/utils/ast-utils'
-import {disableCode} from '../util/helper'
+import { removeUnusedCode } from '../util/helper'
 //------------------------------------------------------------------------------
 // Rule Definition
 //------------------------------------------------------------------------------
@@ -65,7 +64,8 @@ export default {
     },
 
     create(context) {
-        console.log(context.getFilename())
+        debugger
+        console.log('【context.getFilename()】', context.getFilename())
         const sourceCode = context.getSourceCode();
 
         const REST_PROPERTY_TYPE = /^(?:RestElement|(?:Experimental)?RestProperty)$/u;
@@ -491,19 +491,13 @@ export default {
         }
 
 
-        function collectTsType(variable, unusedVars):boolean {
-            debugger
+        function isUnusedTsType(variable): boolean {
             if (
-                variable.isTypeVariable && 
+                variable.isTypeVariable &&
                 // 排除类似class的声明
                 variable.identifiers[0].parent.type.indexOf('TS') === 0
             ) {
-                if (
-                    variable.references.length === 0
-                ) {
-                    unusedVars.push(variable)
-                }
-                return true
+                return variable.references.length === 0
             }
             return false
         }
@@ -524,10 +518,6 @@ export default {
                 for (i = 0, l = variables.length; i < l; ++i) {
                     const variable = variables[i];
 
-                    if (variable.name === 'var1') {
-                        debugger
-                    }
-                    
                     // skip a variable of class itself name in the class scope
                     if (scope.type === "class" && scope.block.id === variable.identifiers[0]) {
                         continue;
@@ -550,10 +540,6 @@ export default {
 
                     if (def) {
                         debugger
-
-                        if (collectTsType(variable, unusedVars)) {
-                            continue 
-                        }
 
                         const type = def.type;
 
@@ -591,24 +577,32 @@ export default {
                                 continue;
                             }
                         } else {
-
-                            // skip ignored variables
-                            if (config.varsIgnorePattern && config.varsIgnorePattern.test(def.name.name)) {
+                            // 跳过忽略的变量
+                            if (
+                                config.varsIgnorePattern &&
+                                config.varsIgnorePattern.test(def.name.name)
+                            ) {
                                 continue;
                             }
                         }
                     }
 
+                    const isUsedVariableRes = isUsedVariable(variable)
+                    const isExportedRes = isExported(variable)
+                    const hasRestSpreadSiblingRes = hasRestSpreadSibling(variable)
+                    
                     if (
-                        !isUsedVariable(variable) && 
-                        !isExported(variable) && 
-                        !hasRestSpreadSibling(variable)
+                        !isUsedVariableRes &&
+                        !isExportedRes &&
+                        !hasRestSpreadSiblingRes
+                        || (!isExportedRes && isUnusedTsType(variable))
                     ) {
                         unusedVars.push(variable);
                     }
                 }
             }
 
+            // 递归子作用域
             for (i = 0, l = childScopes.length; i < l; ++i) {
                 collectUnusedVariables(childScopes[i], unusedVars);
             }
@@ -638,7 +632,7 @@ export default {
                                 : getDefinedMessage(unusedVar),
                             data: unusedVar,
                             fix: function (fixer) {
-                                return disableCode(fixer, unusedVar)
+                                return removeUnusedCode(fixer, unusedVar, sourceCode)
                             },
                         });
 

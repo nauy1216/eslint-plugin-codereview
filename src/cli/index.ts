@@ -14,10 +14,19 @@ export default function () {
         throw new Error('src参数未传。用于指定eslint检测的文件或目录。')
     }
 
-
     const srcFiles = argv.src// path.resolve(process.cwd(), argv.src)
     const configFile = path.resolve(process.cwd(), argv.config)
-    const eslintExe = path.resolve(process.cwd(), 'node_modules/eslint/bin/eslint.js')
+    // const configFile = path.resolve(process.cwd(), '../config/.eslintrc.default.js')
+    const eslintExe = path.resolve(__dirname, '../../node_modules/eslint/bin/eslint.js')
+    
+    exec(`${eslintExe} -v`, (error, stdout) => {
+        if (error) {
+            console.error(`exec error: ${error}`);
+            return;
+        }
+        console.log(`eslint: ${stdout}`);
+    })
+
     exec(`${eslintExe} ${srcFiles}  --ext .ts,.tsx -c=${configFile} --fix`, (error, stdout, stderr) => {
         if (error) {
             console.error(`exec error: ${error}`);

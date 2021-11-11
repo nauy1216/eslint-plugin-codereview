@@ -19,7 +19,7 @@ export type Options = [
       caughtErrorsIgnorePattern?: string;
     }
 ];
-import {disableCode} from '../util/helper'
+import {removeUnusedCode} from '../util/helper'
 interface TranslatedOptions {
   vars: "all" | "local";
   varsIgnorePattern?: RegExp;
@@ -396,7 +396,7 @@ export default {
                 ? getAssignedMessageData(unusedVar)
                 : getDefinedMessageData(unusedVar),
               fix: function (fixer) {
-                return disableCode(fixer, unusedVar)
+                return removeUnusedCode(fixer, unusedVar)
                 // return fixer.replaceTextRange(unusedVar.identifiers[0]!.parent!.range, '/*deadcode*/')
                 // return fixer.remove(unusedVar.identifiers[0].parent);
               },
